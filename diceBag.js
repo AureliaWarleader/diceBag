@@ -18,7 +18,7 @@ function diceBag(diceRoll){
   var parse = function(diceRoll){
     var notation = diceRoll.match(/^(\d+)?d(\d+)([+-]\d+)?$/i);
     if (notation === null){
-      console.log("Please enter a valid dice notation");
+      console.log("Please enter valid dice notation");
       return null;
     };
     var rolls = (notation[1] !== undefined) ? Number(notation[1]) : 1;
@@ -26,10 +26,23 @@ function diceBag(diceRoll){
     var modifier = (notation[3] !== undefined) ? Number(notation[3]) : 0;
     //Number(blah) turns notation[#] into number rather than string
     return { rolls: rolls, sides: sides, modifier: modifier };
-    //Will set parse to obj literal
   };
 
+  var parts = parse(diceRoll);
 
+  //Create a way to store info about dice rolls
+  var results = {
+    rolls: [],
+    modifier: 0,
+    total: 0
+  };
+
+  //Now to actually roll dice
+  for (var i = 0; i<parts.rolls; i++){
+    results.rolls[i] = (1 + Math.floor(Math.random()* parts.sides));
+  }
+  
+  console.log(results.rolls);
 }
 
 diceBag("3d6+5");
