@@ -16,6 +16,8 @@ Still going to build my own. Because I can. */
 function diceBag(diceRoll){
   //Takes diceroll input and splits into parts
   var parse = function(diceRoll){
+    //Remove spaces to make notation valid
+    diceRoll = diceRoll.replace(/\s/g, '');
     var notation = diceRoll.match(/^(\d+)?d(\d+)([+-]\d+)?$/i);
     if (notation === null){
       console.log("Please enter valid dice notation");
@@ -48,14 +50,8 @@ function diceBag(diceRoll){
   //Add up rolls and modifier to get total
   for (var i = 0; i < results.rolls.length; i++){
     results.total += results.rolls[i];
-    console.log(results.total);
   }
   results.total += results.modifier;
-  console.log(results.total);
-
-  console.log(results.rolls);
-  console.log(results.modifier);
-
   //Lastly, output in a human readable way
   results.rolls = results.rolls.join("+");
   if(results.modifier >= 0){
@@ -63,9 +59,5 @@ function diceBag(diceRoll){
   } else {
     results.rolls = results.rolls += " " + results.modifier + " = " + results.total;
   }
-
-  console.log(results.rolls);
-
+  return results;
 }
-
-diceBag("d20+2");
