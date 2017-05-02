@@ -39,10 +39,33 @@ function diceBag(diceRoll){
 
   //Now to actually roll dice
   for (var i = 0; i<parts.rolls; i++){
-    results.rolls[i] = (1 + Math.floor(Math.random()* parts.sides));
+    results.rolls[i] = (Math.floor(Math.random() * parts.sides) + 1);
   }
-  
+
+  //Set results.modifier so it can be used in output
+  results.modifier = parts.modifier;
+
+  //Add up rolls and modifier to get total
+  for (var i = 0; i < results.rolls.length; i++){
+    results.total += results.rolls[i];
+    console.log(results.total);
+  }
+  results.total += results.modifier;
+  console.log(results.total);
+
   console.log(results.rolls);
+  console.log(results.modifier);
+
+  //Lastly, output in a human readable way
+  results.rolls = results.rolls.join("+");
+  if(results.modifier >= 0){
+    results.rolls = results.rolls += "+" + results.modifier + " = " + results.total;
+  } else {
+    results.rolls = results.rolls += " " + results.modifier + " = " + results.total;
+  }
+
+  console.log(results.rolls);
+
 }
 
-diceBag("3d6+5");
+diceBag("d20+2");
