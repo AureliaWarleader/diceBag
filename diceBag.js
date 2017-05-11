@@ -1,14 +1,9 @@
 /* I'm aware that there are a gajillion dice rolling libraries out there.
 Still going to build my own. Because I can. */
-
-/* Commenting out the original code while I rewrite it to make it a little prettier
-Or, y'know, to completely rewrite everything in a whole new way because I can think of a million
-ways to do this but can't decide which method is best...yay for being a noob*/
+/*I decided to rewrite this to give it a go somewhat on my own and add additional
+functionality, specifically the ability to roll multiple sets of dice at once.*/
 
 function diceBag(diceRolls){
-  //This is meant to be a log of past rolls. May or may not get used
-    let log = [];
-
   //The results of the current set of rolls
     const roll = {
       notation: '',
@@ -22,6 +17,8 @@ function diceBag(diceRolls){
       average: 0,
       equation: ''
     }
+
+  //Array to stash our rolls
     const rolls = [];
 
   //First turn arguments into array for later use
@@ -66,75 +63,13 @@ function diceBag(diceRolls){
       element.total += element.modifier;
       element.highest = Math.max.apply(null, element.results);
       element.lowest = Math.min.apply(null, element.results);
-      console.log(element.results);
-      console.log("total: " + element.total + " avg: " + element.average + " high: " + element.highest + " low: " + element.lowest);
     });
 
-  //Then some other fun numbers: highest roll, lowest roll, and average roll
+  //Lastly, lets create a nice, human-readable equation for this
     rolls.map(function(element){
+      element.equation = element.results.join(' + ');
+      element.equation = element.modifier >= 0 ? element.equation + ' + ' + element.modifier + ' = ' + element.total : element.equation + ' ' + element.modifier + ' = ' + element.total;
     })
 
+    return rolls;
 };
-
-diceBag("2d6", "3d10-5", "d4+2");
-
-/*
-(function(){
-  function diceBag(diceRoll){
-  //Takes diceroll input and splits into parts
-  var parse = function(diceRoll){
-    //Remove spaces to make notation valid
-    diceRoll = diceRoll.replace(/\s/g, '');
-    var notation = diceRoll.match(/^(\d+)?d(\d+)([+-]\d+)?$/i);
-    if (notation === null){
-      console.log("Please enter valid dice notation");
-      return null;
-    };
-    var rolls = (notation[1] !== undefined) ? Number(notation[1]) : 1;
-    var sides = (notation[2] !== undefined) ? Number(notation[2]) : 0;
-    var modifier = (notation[3] !== undefined) ? Number(notation[3]) : 0;
-    //Number(blah) turns notation[#] into number rather than string
-    return { rolls: rolls, sides: sides, modifier: modifier };
-  };
-
-  var parts = parse(diceRoll);
-
-  //Create a way to store info about dice rolls
-  var results = {
-    rolls: [],
-    modifier: 0,
-    total: 0,
-    highest: 0,
-    lowest: 0,
-    average: 0
-  };
-
-  //Now to actually roll dice
-  for (var i = 0; i<parts.rolls; i++){
-    results.rolls[i] = (Math.floor(Math.random() * parts.sides) + 1);
-  }
-
-  //Set results.modifier so it can be used in output
-  results.modifier = parts.modifier;
-
-  //Add up rolls to get total
-  for (var i = 0; i < results.rolls.length; i++){
-    results.total += results.rolls[i];
-  }
-  //Find average before modifier is added
-  results.avg = (results.total / rolls.length);
-
-  //then add modifier
-  results.total += results.modifier;
-
-  //Lastly, output in a human readable way
-  results.rolls = results.rolls.join("+");
-  if(results.modifier >= 0){
-    results.rolls = results.rolls += "+" + results.modifier + " = " + results.total;
-  } else {
-    results.rolls = results.rolls += " " + results.modifier + " = " + results.total;
-  }
-  return results;
-}
-})();
-*/
