@@ -59,12 +59,21 @@ function diceBag(diceRolls){
       element.results = theseRolls;
     });
 
-  //Let's get us a total
-  rolls.map(function(element){
-    element.total = element.results.reduce(function(a, b){ return a + b });
-    element.total += element.modifier;
-    console.log(element.results+' + '+element.modifier+' + '+element.total);
-  })
+  //Let's get us some numbers
+    rolls.map(function(element){
+      element.total = element.results.reduce(function(a, b){ return a + b });
+      element.average = Math.round((element.total / element.numDice));
+      element.total += element.modifier;
+      element.highest = Math.max.apply(null, element.results);
+      element.lowest = Math.min.apply(null, element.results);
+      console.log(element.results);
+      console.log("total: " + element.total + " avg: " + element.average + " high: " + element.highest + " low: " + element.lowest);
+    });
+
+  //Then some other fun numbers: highest roll, lowest roll, and average roll
+    rolls.map(function(element){
+    })
+
 };
 
 diceBag("2d6", "3d10-5", "d4+2");
