@@ -1,0 +1,26 @@
+{
+  "name": "dicebag",
+  "version": "1.0.0",
+  "description": "Dice rolling library",
+  "main": "diceBag.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aureliawarleader/diceBag.git"
+  },
+  "author": "AureliaWarleader",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aureliawarleader/diceBag/issues"
+  },
+  "homepage": "https://github.com/aureliawarleader/diceBag#readme",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.1.2"
+  }
+}
